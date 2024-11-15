@@ -1073,7 +1073,7 @@ def registration():
         st.session_state['page'] = 'login'  # Navigate to the login page
         st.rerun()
         return  # Exit the function after navigating back
-    st.markdown("<h1 style='text-align: center;'> -- RESGISTRATION --</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center;'> -- REGISTRATION --</h1>", unsafe_allow_html=True)
     st.write("---")
 
     # User input fields for username and password
