@@ -1,12 +1,6 @@
 streamlit
 pandas
 numpy
-datetime
-random
-time
-os
-fpdf
+fpdf2
 Pillow
 altair
-base64
-ast
