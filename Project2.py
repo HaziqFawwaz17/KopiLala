@@ -863,7 +863,7 @@ def salesreport(sales_df):
     pdf.cell(200, 10, txt=f"Report Generated On: {report_date}", ln=True, align='C')
 
     # Output the PDF and allow the user to download it
-    pdf_output = pdf.output(dest='S').encode('latin1')
+    pdf_output = pdf.output(dest='S')
     # Display the download button
     st.download_button(label="Download PDF", data=pdf_output, file_name="sales_report.pdf", mime="application/pdf")
 
