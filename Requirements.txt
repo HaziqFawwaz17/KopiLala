@@ -1,6 +1,6 @@
 streamlit
 pandas
 numpy
-fpdf2
+fpdf
 Pillow
 altair
