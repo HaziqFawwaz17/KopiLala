@@ -4,3 +4,4 @@ numpy
 fpdf2
 Pillow
 altair
+openpyxl
