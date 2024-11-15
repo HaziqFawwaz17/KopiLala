@@ -611,6 +611,10 @@ def inventorymanagement():
     if 'threshold' not in st.session_state:
         st.session_state.threshold = threshold
 
+    # Title for the page
+    st.markdown("<h1 style='text-align: center;'> -- INVENTORY MANAGEMENT --</h1>", unsafe_allow_html=True)
+    st.write("---")
+
     # Display inventory
     st.subheader("Inventory Monitoring")
     display_inventory()
