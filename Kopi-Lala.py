@@ -814,6 +814,8 @@ def salesreport(sales_df):
     else:
         st.write("No coffee sales data available.")
 
+    st.write('---')
+    st.subheader('Summary')
     # Best and worst sellers
     if not coffee_counts.empty:
         best_seller = coffee_counts.loc[coffee_counts['Total Sales'].idxmax(), 'coffee_type']
