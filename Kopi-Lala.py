@@ -477,10 +477,6 @@ def customer_feedback():
     st.markdown("<h1 style='text-align: center;'> -- CUSTOMER FEEDBACK --</h1>", unsafe_allow_html=True)
     st.write("---")
 
-    # Initialize session state variable if it doesn't exist
-    if 'coffee_rating' not in st.session_state:
-        st.session_state.coffee_rating = 0  # Default value (e.g., 0 for no rating)
-
     # Now you can safely use the variable
     value = st.session_state.coffee_rating
 
@@ -1181,6 +1177,7 @@ def logout():
 def main():
     #Add session state to track user login
     #Initialize session state for pages and login
+    # Add session state for pages and login tracking
     if 'page' not in st.session_state:
         st.session_state['page'] = 'login'
     if 'logged_in' not in st.session_state:
@@ -1188,10 +1185,18 @@ def main():
         st.session_state['username'] = ''
     if 'show_payment_page' not in st.session_state:
         st.session_state['show_payment_page'] = False
+    
+    # Add session state for customer feedback
     if 'feedback_list' not in st.session_state:
         st.session_state['feedback_list'] = []
     if 'feedback_submitted' not in st.session_state:
-        st.session_state.feedback_submitted = False
+        st.session_state['feedback_submitted'] = False
+    if 'coffee_rating' not in st.session_state:
+        st.session_state['coffee_rating'] = 1  # Default coffee rating
+    if 'service_rating' not in st.session_state:
+        st.session_state['service_rating'] = 1  # Default service rating
+    if 'feedback_comments' not in st.session_state:
+        st.session_state['feedback_comments'] = ""  # Default to empty string
 
     # Render different pages based on the value of session state 'page'
     if st.session_state['page'] == 'login':
