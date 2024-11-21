@@ -477,6 +477,13 @@ def customer_feedback():
     st.markdown("<h1 style='text-align: center;'> -- CUSTOMER FEEDBACK --</h1>", unsafe_allow_html=True)
     st.write("---")
 
+    # Initialize session state variable if it doesn't exist
+    if 'coffee_rating' not in st.session_state:
+        st.session_state.coffee_rating = 0  # Default value (e.g., 0 for no rating)
+
+    # Now you can safely use the variable
+    value = st.session_state.coffee_rating
+
     if st.session_state.feedback_submitted:
         st.success("Thank you for your feedback!")
         if st.button("Submit Another Feedback"):
