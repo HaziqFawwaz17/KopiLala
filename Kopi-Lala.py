@@ -331,6 +331,7 @@ def customer_order():
         st.success(f"{selected_coffee} added to your order!")
 
     if st.session_state.order_list:
+        st.write('---')
         st.subheader("Your Current Order")
         for idx, order in enumerate(st.session_state.order_list):
             st.write(f"**Coffee {idx + 1}:** {order['quantity']}x {order['coffee']} ({order['preference']}), {order['size']}, Add-ons: {', '.join(order['addons'])}, Price: RM{order['price']:.2f}")
@@ -344,7 +345,7 @@ def customer_order():
         else:
             if voucher:
                 st.error("Invalid voucher code.")
-
+        st.write('---')
         total_order_price = sum([order['price'] for order in st.session_state.order_list])
         discounted_price = total_order_price * (1 - discount)
         st.write(f"Total Order Price: RM{total_order_price:.2f}")
