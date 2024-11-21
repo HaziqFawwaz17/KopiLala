@@ -472,32 +472,58 @@ def order_history():
     else:
         st.write("No order history found.")
 
+#customer feedback for user
 def customer_feedback():
     st.markdown("<h1 style='text-align: center;'> -- CUSTOMER FEEDBACK --</h1>", unsafe_allow_html=True)
     st.write("---")
 
-    coffee_rating = st.slider("Rate your coffee (1-5)", 1, 5)
-    service_rating = st.slider("Rate our service (1-5)", 1, 5)
-    feedback_comments = st.text_area("Additional Comments")
+    if st.session_state.feedback_submitted:
+        st.success("Thank you for your feedback!")
+        if st.button("Submit Another Feedback"):
+            st.session_state.feedback_submitted = False
+            st.session_state.coffee_rating = 1
+            st.session_state.service_rating = 1
+            st.session_state.feedback_comments = ""
+            st.rerun()
+    else:
+        #Collect inputs
+        coffee_rating = st.slider(
+            "Rate your coffee (1-5)",1, 5,
+            value=st.session_state.coffee_rating,
+            key="coffee_rating_slider"
+            )
+        service_rating = st.slider(
+            "Rate our service (1-5)",1,5,
+            value=st.session_state.service_rating,
+            key="service_rating_slider"
+        )
+        feedback_comments = st.text_area(
+            "Additional Comments",
+            value=st.session_state.feedback_comments,
+            key="feedback_comments_area"
+        )
 
-    if st.button("Submit Feedback"):
-        # Check if feedback_comments is not empty
-        if feedback_comments.strip():  # Ensure it's not just whitespace
-            feedback_entry = {
-                "coffee_rating": coffee_rating,
-                "service_rating": service_rating,
-                "comments": feedback_comments,
-                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            }
-            # Append the feedback entry to session state
-            st.session_state.feedback_list.append(feedback_entry)
-            st.success("Thank you for your feedback!")
+        if st.button("Submit Feedback"):
+            #Check if feedback comments are not empty
+            if feedback_comments.strip():
+                feedback_entry = {
+                    "coffee_rating": coffee_rating,
+                    "service_rating": service_rating,
+                    "comments": feedback_comments,
+                    "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                }
+                #Append the feedback entry to the session state feedback list
+                st.session_state.feedback_list.append(feedback_entry)
 
-            # Save the updated feedback list to an Excel file
-            df = pd.DataFrame(st.session_state.feedback_list)
-            df.to_excel("customer_feedback.xlsx", index=False)
-        else:
-            st.error("Feedback comments cannot be empty.")
+                #Save the updated feedback list to an Excel file
+                df = pd.DataFrame(st.session_state.feedback_list)
+                df.to_excel("customer_feedback.xlsx", index=False)
+
+                #Mark feedback as submitted
+                st.session_state.feedback_submitted = True
+                st.rerun()
+            else:
+                st.error("Feedback comments cannot be empty.")
     
 def user_page():
     
@@ -1157,6 +1183,8 @@ def main():
         st.session_state['show_payment_page'] = False
     if 'feedback_list' not in st.session_state:
         st.session_state['feedback_list'] = []
+    if 'feedback_submitted' not in st.session_state:
+        st.session_state.feedback_submitted = False
 
     # Render different pages based on the value of session state 'page'
     if st.session_state['page'] == 'login':
