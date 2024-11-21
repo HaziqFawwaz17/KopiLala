@@ -624,7 +624,7 @@ def handle_order():
                 df.to_excel(filename, index=False)
                 st.error(f"Order {order['Name']} marked as cancelled!")
                 st.rerun()
-
+        st.write('---')
     # If there are no 'Processing' orders, display a message
     if len(processing_orders) == 0:
         st.write("No processing orders found.")
