@@ -657,6 +657,7 @@ def inventorymanagement():
     display_restock_list()
 
     # Manual Inventory Stocking
+    st.write('---')
     st.subheader("Manual Inventory Stocking")
     restock_amounts = {item: st.number_input(f"{item} Restock Amount", min_value=0, max_value=1000, step=1, key=item) for item in st.session_state.inventory.keys()}
 
